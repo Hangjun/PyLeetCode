@@ -13,7 +13,7 @@ Input: 14
 Output: false
 """
 
-# Binary Search. Very similar to sqrt(num). Time: O(logn), Space: O(1).
+# Solution #1: Binary Search. Very similar to sqrt(num). Time: O(logn), Space: O(1).
 class Solution(object):
     def isPerfectSquare(self, num):
         """
@@ -33,3 +33,16 @@ class Solution(object):
             else:
                 r = mid - 1
         return False
+
+# Solution #2: We use the fact that a number is a perfect square iff it is a sum of 1 + 3 + 5 + 7 + .... Time: O(sqrt(n)), Space: O(n)
+class Solution(object):
+    def isPerfectSquare(self, num):
+        """
+        :type num: int
+        :rtype: bool
+        """
+        i = 1
+        while num > 0:
+            num -= i
+            i += 2
+        return num == 0
