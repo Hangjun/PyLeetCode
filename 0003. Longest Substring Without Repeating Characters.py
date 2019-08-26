@@ -20,7 +20,6 @@ Explanation: The answer is "wke", with the length of 3.
 """
 
 # Two Pointers, 1-pass. Time: O(n), Space: O(1)
-from collections import defaultdict
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
@@ -34,10 +33,7 @@ class Solution(object):
         start, res = 0, 1
         for i, c in enumerate(s):
             if c in used and start <= used[c]:
-                # update start to jump over the duplicating character's most recent location
                 start = used[c] + 1
-            else:
-                res = max(res, i - start + 1)
-            # update the most recent location index for character c
+            res = max(res, i - start + 1)
             used[c] = i
         return res
