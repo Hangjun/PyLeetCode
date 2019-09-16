@@ -41,13 +41,11 @@ class Solution(object):
                 else:
                     right = mid - 1
             # nums[left, mid] is sorted
-            elif nums[mid] > nums[left]:
+            elif nums[mid] > nums[right]:
                 if target < nums[mid] and target >= nums[left]:
                     right = mid - 1
                 else:
                     left = mid + 1
-            elif nums[mid] == nums[left]:
-                left += 1
             else:
                 right -= 1
         return False
