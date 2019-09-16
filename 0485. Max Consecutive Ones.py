@@ -27,6 +27,3 @@ class Solution(object):
                 curLen = 0
             maxLen = max(curLen, maxLen)
         return maxLen
-            
-                    
-            
