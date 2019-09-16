@@ -5,8 +5,6 @@ An array A is monotone increasing if for all i <= j, A[i] <= A[j].  An array A i
 
 Return true if and only if the given array A is monotonic.
 
- 
-
 Example 1:
 
 Input: [1,2,2,3]
@@ -53,3 +51,18 @@ class Solution(object):
             if direction != diff:
                 return False
         return True
+
+# A different divide-and-conquer solution.
+class Solution(object):
+    def isMonotonic(self, A):
+        """
+        :type A: List[int]
+        :rtype: bool
+        """
+        if len(A) <= 2:
+            return True
+        left, right = 0, len(A)-1
+        mid = left + (right - left) / 2
+        if (A[left] - A[mid]) * (A[mid] - A[right]) < 0:
+            return False
+        return self.isMonotonic(A[left:mid+1]) and self.isMonotonic(A[mid: right+1])
