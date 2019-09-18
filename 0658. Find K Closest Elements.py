@@ -29,27 +29,20 @@ class Solution(object):
         
         # pos divides the array into two parts, leftPart and rightPart. Merge sort the two parts
         left, right = pos-1, pos
-        res = []
         count = 0
         while count < k:
             if left < 0:
-                count += 1
                 right += 1
             elif right >= len(arr):
-                count += 1
                 left -= 1
             else:
-                if abs(arr[left] - x) <= abs(arr[right] - x):
-                    count += 1
+                if x - arr[left] <= arr[right] - x:
                     left -= 1
                 else:
-                    count += 1
                     right += 1
+            count += 1
         
-        # insert from left+1 to right-1
-        for i in range(left+1, right):
-            res.append(arr[i])
-        return res
+        return arr[left+1:right]
         
     def findInsertPos(self, arr, x):
         left, right = 1, len(arr) - 1
