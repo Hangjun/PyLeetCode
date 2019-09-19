@@ -40,3 +40,13 @@ class Solution(object):
                     j += 1
         
         return res
+
+# Another solution is to use Python's built-in Counter data structure
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        return zip(*collections.Counter(nums).most_common(k))[0]
