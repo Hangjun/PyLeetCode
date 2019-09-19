@@ -35,7 +35,7 @@ Explanation:
 "bbaA" is also a valid answer, but "Aabb" is incorrect.
 """
 
-# Hash table. Time: O(n), Space: O(n).
+# Solution #1: Hash Table. Time: O(nlogn), Space: O(n).
 class Solution(object):
     def frequencySort(self, s):
         """
@@ -49,4 +49,26 @@ class Solution(object):
         s_dict_sorted = sorted(s_dict, key = s_dict.get, reverse = True)
         for c in s_dict_sorted:
             res += c * s_dict[c]
+        return res
+
+# Solution #2: Bucket Sort. Time: O(n), Space: O(n)
+from collections import defaultdict
+
+class Solution(object):
+    def frequencySort(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        freq = defaultdict(int)
+        bucket = defaultdict(list)
+        for c in s:
+            freq[c] += 1
+        for k, v in freq.iteritems():
+            bucket[v].append(k)
+        res = ""
+        for i in range(len(s), 0, -1):
+            if i in bucket:
+                for c in bucket[i]:
+                    res += i * c
         return res
