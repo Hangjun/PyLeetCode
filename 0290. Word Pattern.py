@@ -23,7 +23,7 @@ Notes:
 You may assume pattern contains only lowercase letters, and str contains lowercase letters that may be separated by a single space.
 """
 
-# Hash Table. Time: O(n), Space: O(n)
+# Python map function. Time: O(n^2), Space: O(n)
 class Solution(object):
     def wordPattern(self, pattern, str):
         """
