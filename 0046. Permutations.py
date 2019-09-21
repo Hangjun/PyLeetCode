@@ -55,3 +55,16 @@ dfs(nums = [1, 2, 3] , path = [] , result = [] )
        |___dfs(nums = [1] , path = [3, 2] , result = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2]] )
             |___dfs(nums = [] , path = [3, 2, 1] , result = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]] ) # added a new permutation to the result
 """
+
+# Here is the more concise implementation of the above DFS algorithm. Notice that in Python when we have a `return A or B`,
+# it would return B if A is false.
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        return [[n] + cur
+                for i, n in enumerate(nums)
+                for cur in self.permute(nums[:i] + nums[i+1:])] or [[]]
+
