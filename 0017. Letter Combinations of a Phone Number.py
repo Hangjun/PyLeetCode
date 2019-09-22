@@ -43,7 +43,8 @@ class Solution(object):
             for c in phone_dial[digits[start]]:
                 self.combinationDFS(digits, start+1, phone_dial, cur + c, res)
 
-# Solution #2: Iterative Construction.
+# Solution #2: Iterative Construction. The idea is, we iteratively construct the final solution set by appending one character to the existing set's partial strings.
+
 class Solution(object):
     def letterCombinations(self, digits):
         """
@@ -72,7 +73,7 @@ class Solution(object):
                     tmp.append(s)
             res = tmp
         return res
-# The idea is, we iteratively construct the final solution set by appending one character to the existing set's partial strings.
+
 # We can modify our code to be more consise in Python:
 class Solution(object):
     def letterCombinations(self, digits):
