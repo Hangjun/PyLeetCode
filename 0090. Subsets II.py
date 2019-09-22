@@ -34,3 +34,16 @@ class Solution(object):
             if i > start and nums[i-1] == nums[i]:
                 continue
             self.dfs(nums, i+1, path + [nums[i]], res)
+
+# Solution #2: Iterative Solution. We can still use an interative solution to construct the result set. We just need to check 
+# for duplicates, which is an expensive operation:
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = [[]]
+        for n in sorted(nums):
+            res += [pre + [n] for pre in res if pre + [n] not in res]
+        return res
