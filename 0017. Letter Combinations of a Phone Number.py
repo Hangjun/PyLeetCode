@@ -44,3 +44,56 @@ class Solution(object):
                 self.combinationDFS(digits, start+1, phone_dial, cur + c, res)
 
 # Solution #2: Iterative Construction.
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        if not digits:
+            return []
+        phone_dial = {
+            '1': '',
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz',
+            '0': ' '}
+        res = [""]
+        for digit in digits:
+            tmp = []
+            for c in phone_dial[digit]:
+                for s in res:
+                    s += c
+                    tmp.append(s)
+            res = tmp
+        return res
+# The idea is, we iteratively construct the final solution set by appending one character to the existing set's partial strings.
+# We can modify our code to be more consise in Python:
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        phone_dial = {
+            '1': '',
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz',
+            '0': ' '}
+        res = []
+        for digit in digits:
+            res = [pre + c
+                   for pre in res or [""]
+                   for c in phone_dial[digit]]
+        return res
