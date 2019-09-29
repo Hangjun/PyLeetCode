@@ -55,6 +55,42 @@ class Solution(object):
         return x >= 0 and x < len(grid) and y >= 0 and y < len(grid[0])
 
 # BFS Solution. Time: O(mn), Space: O(mn)
+import Queue as queue
+
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        if not grid or not grid[0]:
+            return 0
+        m, n = len(grid), len(grid[0])
+        visited = [[False] * n for i in range(m)]
+        q = queue.Queue()
+        res = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1' and not visited[i][j]:
+                    q.put((i, j))
+                    visited[i][j] = True
+                    # BFS on the neighbors of (i, j)
+                    while q:
+                        (x, y) = q.get()
+                        dx = [-1, 0, 1, 0]
+                        dy = [0, 1, 0, -1]
+                        for k in range(4):
+                            nx = x + dx[k]
+                            ny = y + dy[k]
+                            if not self.inBound(grid, nx, ny) or visited[nx][ny] or grid[nx][ny] != '1':
+                                continue
+                            q.put((nx, ny))
+                            visited[nx][ny] = True
+                    res += 1
+        return res
+                        
+    def inBound(self, grid, x, y):
+        return x >= 0 and x < len(grid) and y >= 0 and y < len(grid[0])
 
 # Union-Find Solution.
 
