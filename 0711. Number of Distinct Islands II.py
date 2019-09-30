@@ -87,8 +87,7 @@ class Solution(object):
         
         for rc in rotated_contours:
             rc.sort()
-        print "rotated_contours = ", rotated_contours
-         
+          
         # normailize to get relative coordinates with respect to first node
         for rc in rotated_contours:
             tmp = [(0, 0)]
