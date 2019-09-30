@@ -78,3 +78,28 @@ class Solution(object):
     def inBound(self, grid, i, j):
         return 0 <= i < len(grid) and 0 <= j < len(grid[0])
 
+# Solution #2: We can get border nodes and re-color DURING the DFS:
+class Solution(object):
+    def colorBorder(self, grid, r0, c0, color):
+        """
+        :type grid: List[List[int]]
+        :type r0: int
+        :type c0: int
+        :type color: int
+        :rtype: List[List[int]]
+        """
+        if grid[r0][c0] == color:
+            return grid
+        visited = set()
+        def dfs(i, j):
+            if (i, j) in visited:
+                return True # so that we can recolor on the fly
+            if not (0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == grid[r0][c0]):
+                return False
+            visited.add((i, j))
+            if dfs(i-1, j) + dfs(i, j+1) + dfs(i+1, j) + dfs(i, j-1) < 4:
+                    grid[i][j] = color
+            return True
+        
+        dfs(r0, c0)
+        return grid
