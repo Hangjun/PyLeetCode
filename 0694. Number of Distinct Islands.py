@@ -26,7 +26,7 @@ are considered different island shapes, because we do not consider reflection / 
 Note: The length of each dimension in the given grid does not exceed 50.
 """
 
-# DFS: Time: O(mn), Space: (mn) assuming we cannot modify input. The idea is to record the entire DFS path.
+# DFS: Time: O(mn), Space: (mn) assuming we cannot modify input. The idea is to record the DFS traverse path.
 class Solution(object):
     def numDistinctIslands(self, grid):
         """
@@ -37,11 +37,11 @@ class Solution(object):
             if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and not visited[i][j] and grid[i][j] == 1:
                 visited[i][j] = True
                 # compute the entire DFS path
-                return path \
-                + dfs(i-1, j, visited, "u") + "d" \
-                + dfs(i, j+1, visited, "r") + "l" \
-                + dfs(i+1, j, visited, "d") + "u" \
-                + dfs(i, j-1, visited, "l") + "r"
+                path += dfs(i-1, j, visited, "u")
+                path += dfs(i, j+1, visited, "r")
+                path += dfs(i+1, j, visited, "d")
+                path += dfs(i, j-1, visited, "l")
+                return path + "b"
             else:
                 return ""
             
@@ -53,39 +53,5 @@ class Solution(object):
         for i in range(m):
             for j in range(n):
                 if grid[i][j] == 1 and not visited[i][j]:
-                    island_contours.add(dfs(i, j, visited, "s"))
-        return len(island_contours)
-
-# A different DFS implementation:
-class Solution(object):
-    def numDistinctIslands(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
-        def dfs(i, j, visited, move):
-            if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and not visited[i][j] and grid[i][j] == 1:
-                visited[i][j] = True
-                self.path += move
-                dfs(i-1, j, visited, "u")
-                dfs(i, j+1, visited, "r")
-                dfs(i+1, j, visited, "d")
-                dfs(i, j-1, visited, "l")
-                self.path += "b"
-            else:
-                return ""
-            
-        if not grid or not grid[0]:
-            return 0
-        m, n = len(grid), len(grid[0])
-        visited = [[False] * n for i in range(m)]
-        island_contours = set()
-        self.path = ""
-        for i in range(m):
-            for j in range(n):
-                if grid[i][j] == 1 and not visited[i][j]:
-                    dfs(i, j, visited, "0")
-                    island_contours.add(self.path)
-                    print "contour = ", self.path
-                    self.path = ""
+                    island_contours.add(dfs(i, j, visited, "o"))
         return len(island_contours)
