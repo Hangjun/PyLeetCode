@@ -55,3 +55,37 @@ class Solution(object):
                 if grid[i][j] == 1 and not visited[i][j]:
                     island_contours.add(dfs(i, j, visited, "s"))
         return len(island_contours)
+
+# A different DFS implementation:
+class Solution(object):
+    def numDistinctIslands(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        def dfs(i, j, visited, move):
+            if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and not visited[i][j] and grid[i][j] == 1:
+                visited[i][j] = True
+                self.path += move
+                dfs(i-1, j, visited, "u")
+                dfs(i, j+1, visited, "r")
+                dfs(i+1, j, visited, "d")
+                dfs(i, j-1, visited, "l")
+                self.path += "b"
+            else:
+                return ""
+            
+        if not grid or not grid[0]:
+            return 0
+        m, n = len(grid), len(grid[0])
+        visited = [[False] * n for i in range(m)]
+        island_contours = set()
+        self.path = ""
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1 and not visited[i][j]:
+                    dfs(i, j, visited, "0")
+                    island_contours.add(self.path)
+                    print "contour = ", self.path
+                    self.path = ""
+        return len(island_contours)
