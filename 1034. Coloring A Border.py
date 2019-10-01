@@ -78,7 +78,21 @@ class Solution(object):
     def inBound(self, grid, i, j):
         return 0 <= i < len(grid) and 0 <= j < len(grid[0])
 
-# Solution #2: We can get border nodes and re-color DURING the DFS:
+""" 
+Solution #2: We can get border nodes and re-color DURING the DFS.
+From the above, we see that a border node is a node that 1) lies in the same component of the original node and 2) it borders 
+with either the boundary of the grid or a node that belongs to a _different_ component as the original node. Therefore, it is 
+natural to think if we can pass both of these information DURING the DFS so that we can search AND re-color at the same time. 
+It turns out that this can be done by returning a boolean (0 or 1) during the search that indiciate whether the current node 
+is a border node. 
+
+Let (i, j) be the node at the current DFS. If we have visited (i, j) before then we return 1. If (i, j) is out of bound or belongs 
+to a different component, then we return 0. Returning a 1 indicates that the current node is a valid node and hence if all 
+neighboring DFS search return 1 from the parent DFS run, then that parent node is NOT a border node. In another words, (i, j) is a 
+border node iff dfs(i-1, j) + dfs(i, j+1) + dfs(i+1, j) + dfs(i, j-1) < 4. 
+
+This relates whether (i, j) is a border node with the value of the its neighboring DFS calls.
+"""
 class Solution(object):
     def colorBorder(self, grid, r0, c0, color):
         """
@@ -91,15 +105,20 @@ class Solution(object):
         if grid[r0][c0] == color:
             return grid
         visited = set()
+        
+        def inBound(i, j):
+            return 0 <= i < len(grid) and 0 <= j < len(grid[0])
+        
         def dfs(i, j):
             if (i, j) in visited:
-                return True # so that we can recolor on the fly
-            if not (0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == grid[r0][c0]):
-                return False
+                return 1
+            if not inBound(i, j) or grid[i][j] != grid[r0][c0]:
+                return 0
             visited.add((i, j))
             if dfs(i-1, j) + dfs(i, j+1) + dfs(i+1, j) + dfs(i, j-1) < 4:
-                    grid[i][j] = color
-            return True
-        
+                # found a border node: safe to recolor on the fly
+                grid[i][j] = color
+            return 1
+                
         dfs(r0, c0)
         return grid
