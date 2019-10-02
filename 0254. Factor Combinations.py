@@ -52,7 +52,7 @@ class Solution(object):
             n, i, cur = todo.pop()
             while i <= n/i:
                 if (n % i == 0):
-                    res += cur + [i, n/i],
-                    todo += (n/i, i, cur+[i]),
+                    res += cur + [i, n/i]
+                    todo += (n/i, i, cur+[i])
                 i += 1
         return res
