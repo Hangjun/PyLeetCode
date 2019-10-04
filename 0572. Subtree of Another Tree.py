@@ -54,3 +54,20 @@ class Solution(object):
         return s and t and s.val == t.val and all(map(self.isSameTree, (s.left, s.right), (t.left, t.right))) or s is t
 
 # We can serialize both trees (e.g. via pre-order traversal) and check whether t_serialize is a substring in s_serialize using KMP.
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSubtree(self, s, t):
+        """
+        :type s: TreeNode
+        :type t: TreeNode
+        :rtype: bool
+        """
+        def serialize(s):
+            return "^" + str(s.val) + "#" + serialize(s.left) + serialize(s.right) if s else "$"
+        return serialize(t) in serialize(s)
