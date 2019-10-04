@@ -52,3 +52,5 @@ class Solution(object):
     
     def isSameTree(self, s, t):
         return s and t and s.val == t.val and all(map(self.isSameTree, (s.left, s.right), (t.left, t.right))) or s is t
+
+# We can serialize both trees (e.g. via pre-order traversal) and check whether t_serialize is a substring in s_serialize using KMP.
