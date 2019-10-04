@@ -54,6 +54,7 @@ class Solution(object):
         return s and t and s.val == t.val and all(map(self.isSameTree, (s.left, s.right), (t.left, t.right))) or s is t
 
 # We can serialize both trees (e.g. via pre-order traversal) and check whether t_serialize is a substring in s_serialize using KMP.
+# Time: O(m+n), Space: O(m+n). Assuming the Python implementation of t in s runs in O(m+n) time.
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
