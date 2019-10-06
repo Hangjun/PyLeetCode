@@ -36,7 +36,7 @@ but a neat trick is, if we always start with the left child in the DFS, and only
 depth exceeds the max depth ever reached, we are guarratted to not record any leaf that is not leftmost since the leftmost node 
 in the same depth must have already been explored.
 
-Time: O(n), Space: O(1).
+DFS. Time: O(n), Space: O(1).
 """
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -64,3 +64,35 @@ class Solution(object):
             self.res = cur_node.val
         self.dfs(cur_node.left, cur_depth + 1)
         self.dfs(cur_node.right, cur_depth + 1)
+
+"""
+We can solve this problem using BFS. The idea is that, we level order traverse the tree from right to left, level by level. The 
+node we are looking for is the LAST node in this traversal. This is very similar to https://leetcode.com/problems/binary-tree-right-side-view/.
+"""
+from collections import deque
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def findBottomLeftValue(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        res = 0
+        dq = deque([root])
+        while root and dq:
+            cur_level_size = len(dq)
+            for _ in range(cur_level_size):
+                node = dq.popleft()
+                res = node.val
+                if node.right:
+                    dq.append(node.right)
+                if node.left:
+                    dq.append(node.left)
+        return res
