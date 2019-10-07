@@ -13,7 +13,7 @@ Note:
 Both of the given trees will have between 1 and 100 nodes.
 """
 
-# Two Pass DFS. Time: O(m + n), Space: O(1).
+# Two Pass DFS. Time: O(m + n), Space: O(m + n).
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -28,15 +28,11 @@ class Solution(object):
         :type root2: TreeNode
         :rtype: bool
         """
-        leaves1, leaves2 = [], []
-        self.findLeaves(root1, leaves1)
-        self.findLeaves(root2, leaves2)
-        return leaves1 == leaves2
+        return self.findLeaves(root1) == self.findLeaves(root2)
     
-    def findLeaves(self, root, res):
+    def findLeaves(self, root):
         if not root:
-            return
+            return []
         if not root.left and not root.right:
-            res.append(root.val)
-        self.findLeaves(root.left, res)
-        self.findLeaves(root.right, res)
+            return [root.val]
+        return self.findLeaves(root.left) + self.findLeaves(root.right)
