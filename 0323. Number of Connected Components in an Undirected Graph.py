@@ -46,6 +46,36 @@ class Solution(object):
         visited = [False] * n
         return sum(dfs(i, adj, visited) for i in range(n))
 
+# BFS Solution:
+class Solution(object):
+    def countComponents(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: int
+        """
+        def bfs(i, visited):
+            if visited[i]:
+                return 0
+            visited[i] = True
+            q = [i]
+            while q:
+                cur = q.pop()
+                # level order traverse all neighboring nodes of cur
+                for j in adj[cur]:
+                    if not visited[j]:
+                        visited[j] = True
+                        q.append(j)
+            return 1
+                
+        adj = {i: [] for i in range(n)}
+        for x, y in edges:
+            adj[x].append(y)
+            adj[y].append(x)
+            
+        visited = [False] * n
+        return sum(bfs(i, visited) for i in range(n))
+
 # Union-Find Solution:
 class Solution(object):
     def countComponents(self, n, edges):
