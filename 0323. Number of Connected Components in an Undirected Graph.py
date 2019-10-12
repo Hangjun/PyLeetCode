@@ -46,3 +46,29 @@ class Solution(object):
         visited = [False] * n
         return sum(dfs(i, adj, visited) for i in range(n))
 
+# Union-Find Solution:
+class Solution(object):
+    def countComponents(self, n, edges):
+        """
+        :type n: int
+        :type edges: List[List[int]]
+        :rtype: int
+        """
+        def find(x):
+            if parent[x] != x:
+                parent[x] = find(parent[x])
+            return parent[x]
+    
+        def union(edge):
+            px, py = map(find, edge)
+            if rank[px] < rank[py]:
+                parent[px] = py
+            else:
+                parent[py] = px
+                if rank[px] == rank[py]:
+                    rank[px] += 1
+        
+        parent, rank = range(n), [0] * n
+        map(union, edges)
+        # return the number of distinct parents
+        return len({find(x) for x in parent})
