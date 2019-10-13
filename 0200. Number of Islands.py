@@ -27,17 +27,17 @@ def numIslands(self, grid):
         :type grid: List[List[str]]
         :rtype: int
         """
-        def dfs(i, j, visited):
+        def dfs(i, j):
             if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and not visited[i][j] and grid[i][j] == '1':
                 visited[i][j] = True
-                map(dfs, (i-1, i, i+1, i), (j, j+1, j, j-1), (visited, visited, visited, visited))
+                map(dfs, (i-1, i, i+1, i), (j, j+1, j, j-1))
                 return 1
             return 0
         
         if not grid or not grid[0]: return 0
         m, n = len(grid), len(grid[0])
         visited = [[False] * n for i in range(m)]
-        return sum(dfs(i, j, visited) for i in range(m) for j in range(n))
+        return sum(dfs(i, j) for i in range(m) for j in range(n))
 
 # BFS Solution. Time: O(mn), Space: O(mn)
 import Queue as queue
