@@ -43,7 +43,6 @@ class Solution(object):
         min_heap = []
         for x, y in points:
             dist = -(x ** 2 + y ** 2)
-            print "dist = ", dist
             if len(min_heap) < K:
                 heapq.heappush(min_heap, (dist, (x, y)))
             else:
