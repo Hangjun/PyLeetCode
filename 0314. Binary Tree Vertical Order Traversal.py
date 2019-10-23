@@ -124,8 +124,6 @@ class Solution(object):
             maxWidth = max(maxWidth, i)
             if node.left:
                 queue.append((node.left, i-1))
-                print "enqueue ", node.left.val
             if node.right:
                 queue.append((node.right, i+1))
-                print "enqueue ", node.right.val
         return [cols[i] for i in range(minWidth, maxWidth+1) if i in cols]
