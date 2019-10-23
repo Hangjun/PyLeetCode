@@ -127,3 +127,34 @@ class Solution(object):
             if node.right:
                 queue.append((node.right, i+1))
         return [cols[i] for i in range(minWidth, maxWidth+1) if i in cols]
+
+# Or similarly using dequeu:
+import collections
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def verticalOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if not root:
+            return None
+        minWidth, maxWidth = 0, 0
+        cols = collections.defaultdict(list)
+        queue = collections.deque([(root, 0)])
+        while queue:
+            node, i = queue.popleft()
+            cols[i].append(node.val)
+            minWidth = min(minWidth, i)
+            maxWidth = max(maxWidth, i)
+            if node.left:
+                queue.append((node.left, i-1))
+            if node.right:
+                queue.append((node.right, i+1))
+        return [cols[i] for i in range(minWidth, maxWidth+1) if i in cols]
