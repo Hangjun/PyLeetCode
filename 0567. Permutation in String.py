@@ -51,6 +51,38 @@ class Solution(object):
                 return False
         return True
 
+# We can obsorb the "warm up" into a single for loop:
+from collections import Counter
+class Solution(object):
+    def checkInclusion(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: bool
+        """
+        n1, n2 = len(s1), len(s2)
+        if n1 > n2:
+            return False
+        count = Counter(s1)
+    
+        # loop invariant: sliding window is [i-n1+1, i]
+        for i in range(n2):
+            if i < n1:
+                count[s2[i]] -= 1
+            else:
+                count[s2[i]] -= 1
+                count[s2[i-n1]] += 1
+            if self._allZero(count):
+                return True
+
+        return False
+
+    def _allZero(self, count):
+        for _, value in count.items():
+            if value:
+                return False
+        return True
+
 """
 This problem is actually the same as https://github.com/Hangjun/PyLeetCode/blob/master/0438.%20Find%20All%20Anagrams%20in%20a%20String.py. 
 We can also use two hash tables and have the same implementation:
