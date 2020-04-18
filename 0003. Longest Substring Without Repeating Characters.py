@@ -26,10 +26,7 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        if (len(s) <= 1):
-            return len(s)
-            
-        used = {}
+        used = {} # used[c] = last index character c appeared at
         start, res = 0, 1
         for i, c in enumerate(s):
             if c in used and start <= used[c]:
