@@ -27,10 +27,10 @@ class Solution(object):
         :rtype: int
         """
         used = {} # used[c] = last index character c appeared at
-        start, res = 0, 1
-        for i, c in enumerate(s):
-            if c in used and start <= used[c]:
-                start = used[c] + 1
-            res = max(res, i - start + 1)
-            used[c] = i
+        left, res = 0, 0
+        for right, c in enumerate(s):
+            if c in used and left <= used[c]:
+                left = used[c] + 1
+            res = max(res, right - left + 1)
+            used[c] = right
         return res
