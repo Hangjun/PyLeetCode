@@ -12,7 +12,28 @@ The input array will only contain 0 and 1.
 The length of input array is a positive integer and will not exceed 10,000
 """
 
-# Time: O(n), Space: O(1). Linear Scan.
+# A typical two pointer sliding window implementation: Time: O(n), Space: O(1).
+class Solution(object):
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        left = -1
+        right = 0
+        res = 0
+        while right < len(nums):
+            while right < len(nums) and nums[right] != 1:
+                right += 1
+            if right == len(nums):
+                return res
+            left = right
+            while right < len(nums) and nums[right] == 1:
+                right += 1
+            res = max(res, right-left)
+        return res
+
+# We can make the implementation simplier. Time: O(n), Space: O(1). Linear Scan.
 class Solution(object):
     def findMaxConsecutiveOnes(self, nums):
         """
