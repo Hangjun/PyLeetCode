@@ -33,7 +33,8 @@ class Solution(object):
             res = max(res, right-left)
         return res
 
-# We can make the implementation simplier. Time: O(n), Space: O(1). Linear Scan.
+# We only need to keep track of a local running length and a global length. No need to materialize the left and right pointers.
+# Time: O(n), Space: O(1). Linear Scan.
 class Solution(object):
     def findMaxConsecutiveOnes(self, nums):
         """
