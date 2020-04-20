@@ -49,4 +49,3 @@ class Solution(object):
             elif i - mod_location[sum] > 1: # i-mod_location[sum] = partial sum (mod_location[sum]+1, ..., i)
                 return True
         return False
-
