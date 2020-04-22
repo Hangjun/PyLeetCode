@@ -34,7 +34,7 @@ we use a global variable to track the optimal path sum so far.
 
 One caveat is, the global res needs to be initialized to be root.val since the problem requires the path to have at least one node.
 
-Time: O(n), Space: O(1). Single DFS.
+Time: O(n), Space: O(logn) - for the recursive call stack. Single DFS.
 """
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -65,3 +65,48 @@ class Solution(object):
         self.res = max(self.res, left_path_sum + right_path_sum + root.val)
         # Choose either left path, or right path, or an empty path
         return max(root.val + max(left_path_sum, right_path_sum), 0)
+
+# As a follow up, we can printn out the actual path with the maximum sum. The idea is the same: each dfs returns the one-sided 
+# maximum path, each node, after its left dfs call and right dfs call, assembles the global max sum path and update a global 
+# variable.
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return self.res
+        # global variable associated with the class
+        self.res = root.val
+        self.max_path = []
+        self.dfs(root)
+        print('final... max_path = ', self.max_path)
+        return self.res
+    
+    # Returns the maxium path sum either starting from root or ending at root
+    def dfs(self, root):
+        if not root:
+            return 0, []
+        left_path_sum, left_path = self.dfs(root.left)
+        right_path_sum, right_path = self.dfs(root.right)
+        cur_max_path_sum = left_path_sum + right_path_sum + root.val
+        if cur_max_path_sum > self.res:
+            self.res = cur_max_path_sum
+            self.max_path = left_path + [root.val] + right_path
+        # Choose either left path, or right path, or an empty path
+        max_path_sum = max(root.val + max(left_path_sum, right_path_sum), 0)
+        max_path = []
+        if max_path_sum > 0:
+            if left_path_sum > right_path_sum:
+                max_path = left_path + [root.val]
+            else:
+                max_path = [root.val] + right_path
+        return max_path_sum, max_path
