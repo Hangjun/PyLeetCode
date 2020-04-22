@@ -48,14 +48,15 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        if not root: return 0
-        self.res = 1
+        self.res = 0
         self.dfs(root)
         return self.res
     
     def dfs(self, root):
         if not root:
             return 0, 0
+        # inc and dec counts the number of increasing and decreasing consecutive nodes from root
+        # both inc and dec paths are one-sided
         inc, dec = 1, 1
         left = self.dfs(root.left)
         right = self.dfs(root.right)
@@ -63,12 +64,12 @@ class Solution(object):
             if root.left.val - 1 == root.val:
                 inc = max(inc, left[0] + 1)
             elif root.left.val + 1 == root.val:
-                dec = max(inc, left[1] + 1)
+                dec = max(dec, left[1] + 1)
         if root.right:
             if root.right.val - 1 == root.val:
                 inc = max(inc, right[0] + 1)
             elif root.right.val + 1 == root.val:
                 dec = max(dec, right[1] + 1)
-
         self.res = max(self.res, inc + dec - 1)
         return inc, dec
+
