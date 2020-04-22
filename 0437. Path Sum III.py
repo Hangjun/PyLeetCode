@@ -52,6 +52,7 @@ class Solution(object):
             return 0
         return self.countPathsDFS(root, sum) + self.pathSum(root.left, sum) + self.pathSum(root.right, sum)
     
+    # Count the number of paths sum up to sum eminating from curNode
     def countPathsDFS(self, curNode, sum):
         if not curNode:
             return 0 # sum == 0 return result in double counting
