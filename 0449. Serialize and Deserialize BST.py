@@ -31,11 +31,11 @@ class Codec:
         :rtype: str
         """
         def preorder(root):
-            if not root:
-                return
+            if not root: return
             res.append(str(root.val))
             preorder(root.left)
             preorder(root.right)
+        
         res = []
         preorder(root)
         return ' '.join(res)
@@ -49,22 +49,21 @@ class Codec:
         """
         preorder = map(int, data.split())
         stack = []
-        head = None
+        root = None
         for val in preorder:
-            if not head:
-                head = TreeNode(val)
-                stack.append(head)
+            curNode = TreeNode(val)
+            if not root:
+                root = curNode
             else:
-                cur_node = TreeNode(val)
                 if val < stack[-1].val:
-                    stack[-1].left = cur_node
+                    stack[-1].left = curNode
                 else:
                     while stack and stack[-1].val < val:
-                        parent_node = stack.pop()
-                    parent_node.right = cur_node
-                stack.append(cur_node)
-        return head
-        
+                        parentNode = stack.pop()
+                    parentNode.right = curNode
+            stack.append(curNode)
+        return root
+                    
 
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
