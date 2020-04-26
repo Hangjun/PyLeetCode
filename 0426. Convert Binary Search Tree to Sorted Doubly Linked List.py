@@ -46,7 +46,7 @@ The problem description is overly complicated. It essentially boils down to trav
 along the way, i.e. in-place.
 """
 
-# Iterative Solution. Time: O(n), Space: O(logn).
+# Iterative Inorder Traversal. Time: O(n), Space: O(logn).
 """
 # Definition for a Node.
 class Node(object):
@@ -64,29 +64,25 @@ class Solution(object):
         """
         if not root:
             return None
-        self.prev = None
-        self.head = None
-        self.inorder(root)
-        self.head.left = self.prev
-        self.prev.right = self.head
-        return self.head
-    
-    def inorder(self, root):
         stack = []
         cur = root
+        prev = head = None
         while cur or stack:
             if cur:
                 stack.append(cur)
                 cur = cur.left
             else:
                 cur = stack.pop()
-                if not self.prev:
-                    self.head = cur # find the head of the list
+                if not prev:
+                    head = cur # find the head of the list
                 else:
-                    self.prev.right = cur
-                    cur.left = self.prev
-                self.prev = cur
+                    prev.right = cur
+                    cur.left = prev
+                prev = cur
                 cur = cur.right
+        head.left = prev
+        prev.right = head
+        return head
 
 # Recursive Inorder Traversal: Time: O(n), Space: O(logn).
 """
