@@ -44,9 +44,51 @@ All values of Node.val are unique.
 """
 The problem description is overly complicated. It essentially boils down to traverse the BST inorder and establish the links 
 along the way, i.e. in-place.
-
-Recursive Inorder Traversal: Time: O(n), Space: O(logn).
 """
+
+# Iterative Solution. Time: O(n), Space: O(logn).
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+"""
+
+class Solution(object):
+    def treeToDoublyList(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        if not root:
+            return None
+        self.prev = None
+        self.head = None
+        self.inorder(root)
+        self.head.left = self.prev
+        self.prev.right = self.head
+        return self.head
+    
+    def inorder(self, root):
+        stack = []
+        cur = root
+        while cur or stack:
+            if cur:
+                stack.append(cur)
+                cur = cur.left
+            else:
+                cur = stack.pop()
+                if not self.prev:
+                    self.head = cur # find the head of the list
+                else:
+                    self.prev.right = cur
+                    cur.left = self.prev
+                self.prev = cur
+                cur = cur.right
+
+# Recursive Inorder Traversal: Time: O(n), Space: O(logn).
 """
 # Definition for a Node.
 class Node(object):
