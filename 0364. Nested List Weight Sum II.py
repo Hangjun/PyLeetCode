@@ -88,3 +88,24 @@ class Solution(object):
                 weightedSum[depth] += elem.getInteger()
             else:
                 self.dfs(elem.getList(), depth+1, weightedSum)
+
+# A BFS + one pass solution uses the trick to repeatedly add the sum of previous levels at later levels. The time complexity is 
+# actually worse. We just present it for reference:
+# BFS One pass. Time: O(n^2), Space: O(n).
+class Solution(object):
+    def depthSumInverse(self, nestedList):
+        """
+        :type nestedList: List[NestedInteger]
+        :rtype: int
+        """
+        weighted, unweighted = 0, 0
+        while nestedList:
+            nextLevel = []
+            for elem in nestedList:
+                if elem.isInteger():
+                    unweighted += elem.getInteger()
+                else:
+                    nextLevel.extend(elem.getList())
+            nestedList = nextLevel
+            weighted += unweighted
+        return weighted
