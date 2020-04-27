@@ -15,7 +15,7 @@ Output: 27
 Explanation: One 1 at depth 1, one 4 at depth 2, and one 6 at depth 3; 1 + 4*2 + 6*3 = 27.
 """
 
-# DFS. Time: O(n), Space: O(1) - do not count recursive stack space.
+# DFS. Time: O(n), Space: O(d), d is the depth of the nesting.
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
