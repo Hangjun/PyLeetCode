@@ -33,25 +33,25 @@ class Solution(object):
         :type grid: List[List[int]]
         :rtype: int
         """
-        def dfs(i, j, visited, path):
-            if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and not visited[i][j] and grid[i][j] == 1:
+        def dfs(i, j, path):
+            if 0 <= i < m and 0 <= j < n and not visited[i][j] and grid[i][j] == 1:
                 visited[i][j] = True
-                # compute the entire DFS path
-                path += dfs(i-1, j, visited, "u")
-                path += dfs(i, j+1, visited, "r")
-                path += dfs(i+1, j, visited, "d")
-                path += dfs(i, j-1, visited, "l")
-                return path + "b"
-            else:
-                return ""
-            
+                path += dfs(i+1, j, "d")
+                path += dfs(i, j+1, "r")
+                path += dfs(i-1, j, "u")
+                path += dfs(i, j-1, "l")
+                return path + "b" # must include the backtrack step to have the complete trace recorded
+            return ""
+        
         if not grid or not grid[0]:
             return 0
         m, n = len(grid), len(grid[0])
-        visited = [[False] * n for i in range(m)]
-        island_contours = set()
+        visited = [[False for i in range(n)] for j in range(m)]
+        contour = set()
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == 1 and not visited[i][j]:
-                    island_contours.add(dfs(i, j, visited, "o"))
-        return len(island_contours)
+                # we do not need to have "" contours
+                if not visited[i][j] and grid[i][j] == 1:
+                    contour.add(dfs(i, j, "o"))
+        return len(contour)
+
