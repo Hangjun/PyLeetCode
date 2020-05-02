@@ -85,7 +85,6 @@ class Solution(object):
         dx = [1, 0, -1, 0]
         dy = [0, 1, 0, -1]
         for i in range(4):
-            print('i = ', i)
             nx = x
             ny = y
             while self.inBound(maze, nx+dx[i], ny+dy[i]) and maze[nx+dx[i]][ny+dy[i]] == 0:
