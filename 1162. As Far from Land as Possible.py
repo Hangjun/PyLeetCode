@@ -31,8 +31,9 @@ Note:
 grid[i][j] is 0 or 1
 """
 
-# This is the exact same problem as Problem 994	Rotting Oranges. We start BFS from ALL the island cells at the same time and 
-# cover the water cells level by level until the last water cell to get covered.
+# This is the exact same problem as Problem 994	Rotting Oranges and Problem 934	Shortest Bridge. 
+# We start BFS from ALL the island cells at the same time and cover the water cells level by level until the last water cell 
+# to get covered.
 # Time: O(mn), Space: O(mn).
 from collections import deque
 class Solution(object):
