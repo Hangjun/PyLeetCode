@@ -50,6 +50,7 @@ class Solution(object):
         reachable = [[0 for i in range(n)] for j in range(m)]
         
         # Step 1: for each building, BFS to update all the distance from this building to an empty land
+        # Time: O(m^2n^2)
         for i in range(m):
             for j in range(n):
                 if grid[i][j] != 1: 
@@ -78,6 +79,7 @@ class Solution(object):
                             #print('update distance for {}, {} to be {}, reachable buildings = {}'.format(nx, ny, dist[nx][ny], reachable[nx][ny]))
                     level += 1
         
+        # Step 2: find the land with minimum total distance to all buildings. Time: O(mn).
         res = sys.maxint
         for i in range(m):
             for j in range(n):
