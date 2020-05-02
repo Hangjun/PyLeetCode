@@ -52,9 +52,9 @@ The maze contains at least 2 empty spaces, and both the width and height of the 
 """
 
 """
-This is a DFS problem. The tricky part is how to handle the rolling. To implement this rolling, when we find the neighbors 
-[nx, ny], we cannot stop at one step away like before: nx = x + dx[i], ny = y + dy[i]. Instead, we need to check the inBound and 
-grid value condition in a given direction (controlled by i) until we hit a wall. 
+The tricky part is how to handle the rolling. To implement this rolling, when we find the neighbors [nx, ny], we cannot stop 
+at one step away like before: nx = x + dx[i], ny = y + dy[i]. Instead, we need to check the inBound and grid value condition 
+in a given direction (controlled by i) until we hit a wall. 
 
 Another tricky part is the handling of visited in this case. It is wrong to return False as soon as we bump into a visited node.
 We just need to go to the next candidate. Also notice that we do not mark intermediate nodes (the ones in the rolling) as visited.
@@ -97,6 +97,48 @@ class Solution(object):
                 return True
         
         return False
+    
+    def inBound(self, maze, x, y):
+        return 0 <= x < len(maze) and 0 <= y < len(maze[0])
+
+"""
+We can also solve this problem using BFS. The neighbors of each node is now defined to be the nodes eminating from the current 
+node which the ball can stop at. Then we continue the search onward from those nodes. The complexity is the same as DFS. From 
+OJ, the time is slightly faster.
+
+BFS: Time: O(mn), Space: O(mn).
+"""
+from collections import deque
+class Solution(object):
+    def hasPath(self, maze, start, destination):
+        """
+        :type maze: List[List[int]]
+        :type start: List[int]
+        :type destination: List[int]
+        :rtype: bool
+        """
+        if not maze or not maze[0]:
+            return False
+        m, n = len(maze), len(maze[0])
+        visited = [[False for i in range(n)] for j in range(m)]
+        visited[start[0]][start[1]] = True
+        queue = deque([start])
+        while queue:
+            curNode = queue.popleft()
+            if curNode == destination:
+                return True
+            dx = [1, 0, -1, 0]
+            dy = [0, 1, 0, -1]
+            for i in range(4):
+                nx = curNode[0]
+                ny = curNode[1]
+                while self.inBound(maze, nx+dx[i], ny+dy[i]) and maze[nx+dx[i]][ny+dy[i]] == 0:
+                    nx += dx[i]
+                    ny += dy[i]
+                if visited[nx][ny]:
+                    continue
+                visited[nx][ny] = True
+                queue.append([nx, ny])
     
     def inBound(self, maze, x, y):
         return 0 <= x < len(maze) and 0 <= y < len(maze[0])
