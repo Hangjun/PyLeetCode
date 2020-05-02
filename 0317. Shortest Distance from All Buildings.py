@@ -33,6 +33,13 @@ incrementally update the distance from each building to each empty land.
 
 BFS. Time: O(m^2n^2), Space: O(mn).
 """
+
+# Caveat #1: After computing the total (minimum) distance from all buildings, some empty land still might not be reachable to 
+# ALL buildings. Therefore we need to keep another record to count the total number of reachable buildings from each empty land.
+
+# Caveat #2: It might be the case that no empty land to reach ALL the buildings, e.g. there is no empty land to begin with, or 
+# they are all blocked by obstacles. In this case we need to return -1.
+
 from collections import deque
 class Solution(object):
     def shortestDistance(self, grid):
