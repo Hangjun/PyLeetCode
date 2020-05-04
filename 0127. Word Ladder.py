@@ -70,6 +70,45 @@ class Solution(object):
                 # erase the values for this template
                 all_combo_dict[template] = []
         return 0
+    
+# We can minic a Dijkstra's algorithm flavor and use a distance array to record the minimum distance from beginWord and use that 
+# to detect words that have been visited before:
+from collections import deque, defaultdict
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        if not endWord or not beginWord or not wordList or endWord not in wordList:
+            return 0
+        k = len(beginWord)
+        all_combo_dict = defaultdict(list)
+        for word in wordList:
+            for i in range(k):
+                template = word[:i] + '*' + word[i+1:]
+                all_combo_dict[template].append(word)
+        distance = defaultdict(int)
+        for word in wordList:
+            distance[word] = sys.maxint
+        distance[beginWord] = 1
+        queue = deque([(beginWord)])
+        while queue:
+            curWord= queue.popleft()
+            if curWord == endWord:
+                return distance[curWord]
+            # BFS on its neighbor words
+            for i in range(k):
+                template = curWord[:i] + '*' + curWord[i+1:]
+                for word in all_combo_dict[template]:
+                    if distance[word] == sys.maxint:
+                        distance[word] = distance[curWord]+1
+                        queue.append((word))
+                # erase the values for this template for faster branch cuts
+                all_combo_dict[template] = []
+        return 0
 
 """
 The graph formed from the nodes in the dictionary might be too big. The search space considered by the breadth first search 
