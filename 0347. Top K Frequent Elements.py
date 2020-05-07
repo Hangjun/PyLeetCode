@@ -17,7 +17,6 @@ Your algorithm's time complexity must be better than O(n log n), where n is the 
 
 # Bucket Sort. Time: O(n), Space: O(n).
 from collections import defaultdict
-
 class Solution(object):
     def topKFrequent(self, nums, k):
         """
@@ -29,16 +28,18 @@ class Solution(object):
         bucket = defaultdict(list)
         for n in nums:
             freq[n] += 1
-        for z, v in freq.iteritems():
-            bucket[v].append(z)
-        res = []
-        for i in range(len(nums), 0, -1):
-            if i in bucket:
-                j = 0
-                while j < len(bucket[i]) and len(res) < k:
-                    res.append(bucket[i][j])
-                    j += 1
+        # bucket[count] stores numbers that appeared count times
+        for num, count in freq.items():
+            bucket[count].append(num)
         
+        # bucket sort by traversing the count downward
+        res = []
+        for count in range(len(nums), 0, -1):
+            if count in bucket:
+                for num in bucket[count]:
+                    if len(res) == k:
+                        return res
+                    res.append(num)
         return res
 
 # Another solution is to use Python's built-in Counter data structure
