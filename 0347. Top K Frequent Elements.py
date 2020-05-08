@@ -41,6 +41,41 @@ class Solution(object):
                         return res
                     res.append(num)
         return res
+    
+# Heap Sort. Time: O(n + klogn), Space: O(n)
+from collections import Counter
+from heapq import heapify, heappush, heappop
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        count = Counter(nums)
+        heap = [(-freq, num) for (num, freq) in count.items()]
+        heapify(heap)
+        return [heappop(heap)[1] for _ in range(k)]
+    
+# Heap Sort. Time: O(n + klogk), Space: O(k).
+from collections import Counter
+from heapq import heapify, heappush, heappop
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        count = Counter(nums)
+        heap = []
+        for num, freq in count.items():
+            if len(heap) < k:
+                heappush(heap, (freq, num))
+            else:
+                heappushpop(heap, (freq, num))
+        
+        return [heappop(heap)[1] for _ in range(k)]
 
 # Another solution is to use Python's built-in Counter data structure
 class Solution(object):
