@@ -33,4 +33,4 @@ class Solution(object):
         count = Counter(words) # O(n) time, O(n) space
         heap = [(-freq, word) for word, freq in count.items()]
         heapify(heap) # O(n) time
-        return [heappop(heap)[1] for _ in range(k)]  # O(klogk) time
+        return [heappop(heap)[1] for _ in range(k)]  # O(klogn) time
