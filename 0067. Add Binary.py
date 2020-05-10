@@ -20,7 +20,7 @@ Each string consists only of '0' or '1' characters.
 Each string is either "0" or doesn't contain any leading zero.
 """
 
-# Bit-by-bit Compuation using Carry. Time: O(m+n), Space: O(1).
+# Bit-by-bit Compuation using Carry. Time: O(m+n), Space: O(max(m, n)).
 class Solution(object):
     def addBinary(self, a, b):
         """
