@@ -66,7 +66,7 @@ class Solution(object):
             s, t = words[i], words[i+1]
             L = min(len(s), len(t))
             for j in range(L):
-                if j < len(s) and j < len(t) and s[j] != t[j]:
+                if s[j] != t[j]:
                     # directed edge: s[j] -> t[j] to represent s[j] proceeds t[j]
                     if t[j] not in adjList[s[j]]:
                         adjList[s[j]].add(t[j])
