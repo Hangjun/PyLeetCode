@@ -37,3 +37,25 @@ class Solution(object):
                 # push the (possibly) updated last meeting back to the heap
                 heappush(heap, (lastEnd, lastStart))
         return len(heap)
+    
+# Use "Ordered Dictionaries". Time: O(nlogn), Space: O(n).
+from collections import defaultdict
+class Solution(object):
+    def minMeetingRooms(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: int
+        """
+        if not intervals:
+            return 0        
+        meetingTime = defaultdict(int)
+        for start, end in intervals:
+            meetingTime[start] += 1
+            meetingTime[end] -= 1
+        res = 0
+        rooms = 0
+        for _, count in sorted(meetingTime.items(), key=lambda kv: (kv[0], kv[1])):
+            rooms += count
+            res = max(res, rooms)
+        return res
+
