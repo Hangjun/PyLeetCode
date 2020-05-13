@@ -11,6 +11,7 @@ Given input array nums = [3,2,2,3], val = 3
 Your function should return length = 2, with the first two elements of nums being 2.
 """
 
+# Two Pointer. Time: O(n), Space: O(1). In-place.
 class Solution(object):
     def removeElement(self, nums, val):
         """
@@ -18,15 +19,12 @@ class Solution(object):
         :type val: int
         :rtype: int
         """
-        
-        res, i = 0, 0
-        while i < len(nums):
-            if nums[i] != val:
-                nums[res], nums[i] = nums[i], nums[res]
-                res += 1
-                i += 1
-            else:
-                i += 1
-        
-        return res
+        left = -1
+        # invariant: [0, left] = does not contain val; [left+1, right-1] = val, [right, n-1] = unexplored
+        for right in range(len(nums)):
+            if nums[right] == val:
+                continue
+            left += 1
+            nums[left], nums[right] = nums[right], nums[left]
+        return left + 1
         
