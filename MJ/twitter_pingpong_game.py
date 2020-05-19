@@ -55,10 +55,4 @@ def winningProb(pA, pB, totalPoints):
                 dp[i][j] = dp[i-1][j] * (1 - pB) + dp[i][j-1] * pB
     print dp
     
-    # dp[11][0] + dp[11][1]
     return sum(dp[totalPoints-1][i] for i in range(totalPoints)) 
-
-print winningProb(0.5, 0.5, 2)
-
-# dp[2, 0] = 0.25
-# dp[2, 1] = 0.25 * 0.5 *3 = 0.375
