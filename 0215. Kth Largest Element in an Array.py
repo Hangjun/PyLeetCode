@@ -13,7 +13,8 @@ Note:
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 """
 
-# Quick Select. Average Time: O(n), Worse Case Time: O(n^2). Space: O(1).
+# Quick Select. Average Time: O(n), Worse Case Time: O(n^2). Space: O(1). 
+# T(n) = T(n/2) + O(n) => T(n) = O(n) on average.
 class Solution(object):
     def findKthLargest(self, nums, k):
         """
