@@ -46,7 +46,7 @@ class Solution(object):
         for c in S:
             if c == "(":
                 balance += 1
-            elif c == ")":
+            else:
                 balance -= 1
             if balance == -1:
                 res += 1
