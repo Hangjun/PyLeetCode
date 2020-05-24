@@ -17,21 +17,20 @@ class Solution(object):
         :type num2: str
         :rtype: str
         """
-        res = []
-        num1, num2 = num1[::-1], num2[::-1]
-        n = max(len(num1), len(num2))
         carry = 0
-        for i in range(n):
-            # compute current digit sum
-            if i < len(num1):
+        res = []
+        i = len(num1)-1
+        j = len(num2)-1
+        while i >= 0 or j >= 0 or carry:
+            if i >= 0:
                 carry += int(num1[i])
-            if i < len(num2):
-                carry += int(num2[i])
-            res.append(str(carry % 10))
-            carry //= 10
-        
+            if j >= 0:
+                carry += int(num2[j])
+            res.append(str(carry%10))
+            carry /= 10
+            i -= 1
+            j -= 1
         if carry:
             res.append('1')
-        
-        # concatnate and reverse
-        return ''.join(res)[::-1]
+        return ''.join(res[::-1])
+
