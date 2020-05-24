@@ -53,3 +53,43 @@ class Solution(object):
             else:
                 return False
         return True
+
+# Union-Find with Path Compression and Union by Rank:
+from collections import defaultdict, deque
+
+class Solution(object):
+    def areSentencesSimilarTwo(self, words1, words2, pairs):
+        """
+        :type words1: List[str]
+        :type words2: List[str]
+        :type pairs: List[List[str]]
+        :rtype: bool
+        """
+        if len(words1) != len(words2):
+            return False
+        parent = {}
+        rank = {}
+        for w1, w2 in pairs:
+            parent[w1] = w1
+            rank[w1] = 0
+            parent[w2] = w2
+            rank[w2] = 0
+        
+        def find(word):
+            if parent[word] != word:
+                parent[word] = find(parent[word])
+            return parent[word]
+        
+        def union(w1, w2):
+            p1 = find(w1)
+            p2 = find(w2)
+            if rank[p1] < rank[p2]:
+                parent[p1] = p2
+            else:
+                parent[p2] = parent[p1]
+                rank[p1] += rank[p1] == rank[p2]
+                
+        for w1, w2 in pairs:
+            union(w1, w2)
+                
+        return all(w1 == w2 or (w1 in parent and w2 in parent and find(w1) == find(w2)) for w1, w2 in zip(words1, words2))
