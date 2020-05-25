@@ -66,7 +66,7 @@ class Solution(object):
         # Choose either left path, or right path, or an empty path
         return max(root.val + max(left_path_sum, right_path_sum), 0)
 
-# As a follow up, we can printn out the actual path with the maximum sum. The idea is the same: each dfs returns the one-sided 
+# As a follow up, we can print out the actual path with the maximum sum. The idea is the same: each dfs returns the one-sided 
 # maximum path, each node, after its left dfs call and right dfs call, assembles the global max sum path and update a global 
 # variable.
 # Definition for a binary tree node.
