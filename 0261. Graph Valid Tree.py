@@ -38,11 +38,9 @@ class Solution(object):
         seen = set()
         return not self.dfs(0, -1, seen, adj) and len(seen) == n
     
-    # invariant: curNode is marked as visited at this point, DFS on its neighbors and
+    # invariant: curNode is not visited prior to the current DFS, DFS on its neighbors and
     # return whether we run into a cycle during the DFS
     def dfs(self, curNode, parentNode, seen, adj):
-        if curNode in seen:
-            return
         seen.add(curNode)
         for n in adj[curNode]:
             if n not in seen:
