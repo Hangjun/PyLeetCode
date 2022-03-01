@@ -16,35 +16,38 @@ A solution set is:
 ]
 """
 # Time: O(n^2), Space: O(1)
-class Solution(object):
-    def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        
         res = []
         n = len(nums)
+        nums.sort()
+        
         if n < 3:
             return res
-        nums.sort()
-        for i in range(n-2):
+ 
+        for i in range(n - 2):
+            if nums[i] > 0:
+                break
+                
             if i > 0 and nums[i] == nums[i-1]:
                 continue
-            left, right = i+1, n-1
-            while left < right:
-                curSum = nums[i] + nums[left] + nums[right]
-                if curSum == 0:
-                    res.append([nums[i], nums[left], nums[right]])
-                    # we need to find all _unique_ triplets
-                    left += 1
-                    right -= 1
-                    while left < right and nums[left] == nums[left-1]:
-                        left += 1
-                    while left < right and nums[right] == nums[right+1]:
-                        right -= 1
-                elif curSum < 0:
-                    left += 1
+                
+            l,r = i + 1, n-1
+            while l < r:
+                s = nums[i] + nums[l] + nums[r]
+                if s < 0:
+                    l += 1
+                elif s > 0:
+                    r -= 1
                 else:
-                    right -= 1
+                    res.append([nums[i], nums[l], nums[r]])
+                    while l < r and nums[l] == nums[l+1]:
+                        l += 1
+                    while l < r and  nums[r] == nums[r-1]:
+                        r -= 1
+                    l += 1
+                    r -= 1
+        
         return res
 
