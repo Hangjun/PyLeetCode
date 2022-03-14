@@ -9,6 +9,9 @@ Note:
 You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
 """
 
+
+# Two pointers. Space O(n), Time O(n)
+
 from collections import defaultdict
 class WordDistance:
 
