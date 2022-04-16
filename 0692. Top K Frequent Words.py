@@ -20,7 +20,7 @@ Follow up:
 Try to solve it in O(n log k) time and O(n) extra space.
 """
 
-# Heap Sort. Time: O(n + klogk), Space: O(n).
+# Heap Sort. Time: O(n + klogn), Space: O(n).
 from heapq import heapify, heappop, heappush
 from collections import Counter
 class Solution(object):
