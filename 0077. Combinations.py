@@ -16,22 +16,24 @@ Output:
 """
 
 # Typical Backtracking Algorithm.
-# Time O(n!), Space(n)
+class Solution(object):
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        if n == 0 or k == 0:
+            return res
+        self.combineDFS(1, n, k, [], res)
+        return res
+    def combineDFS(self, start, n, k, cur, res):
+        # terminating condition
+        if len(cur) == k:
+            res.append(cur)
 
-class Solution:
-    def combine(self, n: int, k: int) -> List[List[int]]:
-        
-        ans = []
-        self.dfs(1, n+1, k, [], ans)
-        return ans
-    
-    def dfs(self,start, n, k, cur, ans):
-        
-        if k == 0:
-            ans.append(cur)
-            return
-        
-        for i in range(start, n):
-            self.dfs(i+1, n, k-1, cur+[i], ans)
-        
+        # backtracking
+        for i in range(start, n+1):
+            self.combineDFS(i+1, n, k, cur + [i], res)
             
