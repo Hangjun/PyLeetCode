@@ -42,6 +42,10 @@ We use Union-Find to solve this problem. The time complexity is difficult to ana
 path compression and rank. One caveat is that, if the incoming node has appeared earlier, then we do not need to go through the 
 union-find process anymore.
 """
+
+
+# Time O(klogmn), k is the number of positions. Space O(mn). Whenever we have union find, the find operation takes log(mn) time.
+
 class Solution(object):
     def numIslands2(self, m, n, positions):
         """
