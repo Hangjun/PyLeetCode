@@ -19,9 +19,6 @@ class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         
         l, r = 0, len(nums)-1
-
-        if not r:
-            return nums[0]
         
         def pivot(l, r):         
             n = nums[l]
