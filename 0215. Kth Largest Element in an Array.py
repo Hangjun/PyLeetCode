@@ -13,6 +13,46 @@ Note:
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 """
 
+# quick select. Same solution. different way to code
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        
+        l, r = 0, len(nums)-1
+
+        if not r:
+            return nums[0]
+        
+        def pivot(l, r):         
+            n = nums[l]
+            while l < r:
+                if nums[l]>nums[l+1]:
+                    nums[r], nums[l+1] = nums[l+1], nums[r]
+                    r-=1
+                elif nums[l]<nums[l+1]:
+                    nums[l], nums[l+1] = nums[l+1], nums[l]
+                    l+=1
+                else:
+                    l+=1
+            return l
+        
+        while l<r:
+            p = pivot(l,r)
+            if p==k-1:
+                return nums[p]
+            elif p>k-1:
+                r = p-1
+            else:
+                l = p+1
+                
+        return nums[l]
+            
+            
+
+
+
+
+
 # Quick Select. Average Time: O(n), Worse Case Time: O(n^2). Space: O(1). 
 # T(n) = T(n/2) + O(n) => T(n) = O(n) on average.
 class Solution(object):
